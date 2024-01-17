@@ -45,4 +45,5 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
     private Bank bank;
+
 }

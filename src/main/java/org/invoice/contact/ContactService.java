@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import static org.invoice.exception.ErrorType.CONTACT_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class ContactService {
@@ -19,7 +21,7 @@ public class ContactService {
     }
 
     public Contact findById(UUID id) throws NotFoundException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Contact %s not exists", id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(CONTACT_NOT_FOUND, id));
     }
 
     public List<Contact> findByUserId() {

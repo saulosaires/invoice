@@ -15,8 +15,8 @@ import java.util.UUID;
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String iso;
     private String name;
     private String nicename;

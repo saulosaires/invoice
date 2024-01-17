@@ -1,8 +1,14 @@
 package org.invoice.exception;
 
+import lombok.Getter;
+
+@Getter
 public class NotFoundException extends Exception {
 
-    public NotFoundException(String message, Object obj) {
-        super(String.format(message, obj));
+    private final ErrorType errorType;
+
+    public NotFoundException(ErrorType errorType, Object... args) {
+        super(errorType.with(args));
+        this.errorType = errorType;
     }
 }

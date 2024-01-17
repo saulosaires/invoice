@@ -3,7 +3,7 @@ package org.invoice.country;
 import java.util.UUID;
 
 public record CountryDto(
-        UUID id,
+        Long id,
         String iso,
         String name,
         String nicename,

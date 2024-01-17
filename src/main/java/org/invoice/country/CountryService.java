@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.invoice.exception.ErrorType.COUNTRY_NOT_FOUND;
+
 @Service
 @Slf4j
 public class CountryService {
@@ -17,7 +19,7 @@ public class CountryService {
     }
 
     public Country findById(Long id) throws NotFoundException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Country %s not exists", id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(COUNTRY_NOT_FOUND, id));
     }
 
     List<Country> findAll() {

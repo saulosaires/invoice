@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import static org.invoice.exception.ErrorType.PRODUCT_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -18,7 +20,7 @@ public class ProductService {
     }
 
     public Product findById(UUID id) throws NotFoundException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Product %s not exists", id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND, id));
     }
 
     public List<Product> findByUserId() {
