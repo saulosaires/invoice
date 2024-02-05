@@ -1,4 +1,4 @@
-package org.invoice.company;
+package org.invoice.bank;
 
 import lombok.RequiredArgsConstructor;
 import org.invoice.exception.NotFoundException;
@@ -8,24 +8,24 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController()
-@RequestMapping("companies/")
+@RequestMapping("banks/")
 @RequiredArgsConstructor
-public class CompanyController {
+public class BankController {
 
-    private final CompanyFacade facade;
+    private final BankFacade facade;
 
     @PostMapping()
-    public CompanyDto save(@RequestBody CompanyDto companyDto) {
-        return facade.save(companyDto);
+    public BankDto save(@RequestBody BankDto bankDto) {
+        return facade.save(bankDto);
     }
 
     @GetMapping()
-    public List<CompanyDto> findByUser() {
+    public List<BankDto> findByUser() {
         return facade.findByUser();
     }
 
     @GetMapping("{id}")
-    public CompanyDto findById(@PathVariable("id") UUID id) throws NotFoundException {
+    public BankDto findById(@PathVariable("id") UUID id) throws NotFoundException {
         return facade.findById(id);
     }
 

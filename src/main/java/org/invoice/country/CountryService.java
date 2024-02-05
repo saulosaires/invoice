@@ -23,6 +23,6 @@ public class CountryService {
     }
 
     List<Country> findAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByName();
     }
 }

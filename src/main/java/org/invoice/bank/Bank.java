@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.invoice.company.Company;
 import org.invoice.currency.Currency;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -25,7 +26,7 @@ public class Bank {
     private Currency currency;
     private String swiftBic;
     private String type;
-
+    private BigDecimal balance;
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;

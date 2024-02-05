@@ -9,7 +9,12 @@ public enum ErrorType {
     CONTACT_NOT_FOUND("/contact/not-found", HttpStatus.NOT_FOUND, "Contact %s was not found"),
     COUNTRY_NOT_FOUND("/country/not-found", HttpStatus.NOT_FOUND, "Country %s was not found"),
     PRODUCT_NOT_FOUND("/product/not-found", HttpStatus.NOT_FOUND, "Product %s was not found"),
-    CURRENCY_NOT_FOUND("/currency/not-found", HttpStatus.NOT_FOUND, "Currency %s was not found");
+    BANK_NOT_FOUND("/bank/not-found", HttpStatus.NOT_FOUND, "Bank %s was not found"),
+    CURRENCY_NOT_FOUND("/currency/not-found", HttpStatus.NOT_FOUND, "Currency %s was not found"),
+    USER_NOT_FOUND("/user/email-not-found", HttpStatus.NOT_FOUND, "User %s was not found"),
+    USER_ALREADY_EXIST("/user/already-exist", HttpStatus.BAD_GATEWAY, "User %s already exists"),
+    USER_INVALID_PASSWORD("/user/invalid-password", HttpStatus.BAD_REQUEST, "User %s invalid password");
+
 
     private final String type;
     private final HttpStatus httpStatus;

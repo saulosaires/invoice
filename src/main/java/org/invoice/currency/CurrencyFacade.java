@@ -6,6 +6,7 @@ import org.invoice.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.invoice.exception.ErrorType.CURRENCY_NOT_FOUND;
 
@@ -16,10 +17,10 @@ public class CurrencyFacade {
 
     private final CurrencyRepository repository;
 
-    public Currency findById(Long id) throws NotFoundException {
+    public Currency findById(UUID id) throws NotFoundException {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(CURRENCY_NOT_FOUND, id));
     }
     List<Currency> findAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByName();
     }
 }

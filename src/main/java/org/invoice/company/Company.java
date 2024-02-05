@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.invoice.bank.Bank;
 import org.invoice.country.Country;
+import org.invoice.user.User;
 
 import java.util.Set;
 import java.util.UUID;
@@ -32,4 +33,9 @@ public class Company {
 
     @OneToMany(mappedBy="company")
     private Set<Bank> banks;
+
+    @OneToMany(mappedBy="company")
+    private Set<User> users;
+
+
 }

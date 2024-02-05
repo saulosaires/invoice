@@ -2,6 +2,7 @@ package org.invoice.bank;
 
 import org.invoice.currency.Currency;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public record BankDto(
@@ -10,5 +11,7 @@ public record BankDto(
         String accountNumber,
         Currency currency,
         String swiftBic,
-        String type
-        ) {}
+        String type,
+        BigDecimal balance
+) {
+}
