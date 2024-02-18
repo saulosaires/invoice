@@ -1,11 +1,10 @@
 package org.invoice.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.invoice.company.Company;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -23,4 +22,9 @@ public class Product {
     private BigDecimal price;
     private BigDecimal tax;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    @ToString.Exclude
+    private Company company;
 }

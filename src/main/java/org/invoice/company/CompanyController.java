@@ -2,9 +2,10 @@ package org.invoice.company;
 
 import lombok.RequiredArgsConstructor;
 import org.invoice.exception.NotFoundException;
+import org.invoice.security.AppUserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController()
@@ -20,8 +21,9 @@ public class CompanyController {
     }
 
     @GetMapping()
-    public List<CompanyDto> findByUser() {
-        return facade.findByUser();
+    public CompanyDto findByUser(Authentication authentication) throws NotFoundException {
+        AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
+        return facade.findByUser(appUserDetails.getUser().getId());
     }
 
     @GetMapping("{id}")

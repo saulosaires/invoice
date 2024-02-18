@@ -1,7 +1,10 @@
 package org.invoice.contact;
 
 import lombok.RequiredArgsConstructor;
+import org.invoice.company.Company;
 import org.invoice.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +27,8 @@ public class ContactService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(CONTACT_NOT_FOUND, id));
     }
 
-    public List<Contact> findByUserId() {
-        return repository.findAll();
+    public Page<Contact> findByCompany(Company company, Pageable pageable) {
+        return repository.findByCompany(company,pageable);
     }
 
     public void delete(UUID id) {

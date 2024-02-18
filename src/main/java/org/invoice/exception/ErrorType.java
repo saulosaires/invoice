@@ -13,6 +13,7 @@ public enum ErrorType {
     CURRENCY_NOT_FOUND("/currency/not-found", HttpStatus.NOT_FOUND, "Currency %s was not found"),
     USER_NOT_FOUND("/user/email-not-found", HttpStatus.NOT_FOUND, "User %s was not found"),
     USER_ALREADY_EXIST("/user/already-exist", HttpStatus.BAD_GATEWAY, "User %s already exists"),
+    USER_COMPANY_NOT_FOUND("user/company/not-found", HttpStatus.NOT_FOUND, "User %s doesnt belong to any company"),
     USER_INVALID_PASSWORD("/user/invalid-password", HttpStatus.BAD_REQUEST, "User %s invalid password");
 
 

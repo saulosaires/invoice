@@ -1,12 +1,13 @@
 package org.invoice.security;
 
+import lombok.Getter;
 import org.invoice.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class AppUserDetails implements UserDetails {
+@Getter public class AppUserDetails implements UserDetails {
 
     private final User user;
     Collection<? extends GrantedAuthority> authorities;

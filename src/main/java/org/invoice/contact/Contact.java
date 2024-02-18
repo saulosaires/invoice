@@ -3,6 +3,8 @@ package org.invoice.contact;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.invoice.company.Company;
 
 import java.util.UUID;
 
@@ -27,4 +29,10 @@ public class Contact {
     private String accountHolder;
     private String accountNumber;
     private String swiftBic;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    @ToString.Exclude
+    private Company company;
+
 }

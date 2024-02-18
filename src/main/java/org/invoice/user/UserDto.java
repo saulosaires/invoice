@@ -15,7 +15,7 @@ public record UserDto(
         String phone,
         String instantMessaging,
         LocalDate birthDate,
-        String photoUrl,
+        String picture,
         String providerId,
         String provider,
         boolean accountNonExpired,

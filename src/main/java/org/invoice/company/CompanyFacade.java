@@ -3,6 +3,8 @@ package org.invoice.company;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.invoice.exception.NotFoundException;
+import org.invoice.user.User;
+import org.invoice.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +26,9 @@ public class CompanyFacade {
         return mapper.toDto(company);
     }
 
-    public List<CompanyDto> findByUser() {
-        return companyService.findByUserId().stream().map(mapper::toDto).toList();
+    public CompanyDto findByUser(UUID userId) throws NotFoundException {
+
+        return mapper.toDto(companyService.findByUserId(userId));
     }
 
     public CompanyDto findById(UUID id) throws NotFoundException {

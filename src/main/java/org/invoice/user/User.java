@@ -24,7 +24,7 @@ public class User {
     private String phone;
     private String instantMessaging;
     private LocalDate birthDate;
-    private String photoUrl;
+    private String picture;
     private String providerId;
     private String provider;
     private boolean accountNonExpired=true;

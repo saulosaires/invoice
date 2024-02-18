@@ -23,8 +23,9 @@ public class UserService {
         User user = repository.findByEmail(providerUser.email()).orElse(new User());
         user.setEmail(providerUser.email());
         user.setProvider(providerUser.iss());
+        user.setProviderId(providerUser.sub());
         user.setName(providerUser.name());
-        user.setPhotoUrl(providerUser.picture());
+        user.setPicture(providerUser.picture());
         user.setEmailVerified(providerUser.email_verified());
         return repository.save(user);
     }
@@ -36,7 +37,7 @@ public class UserService {
         user.setEmail(providerUser.email());
         user.setProvider(providerUser.iss());
         user.setName(providerUser.name());
-        user.setPhotoUrl(providerUser.picture());
+        user.setPicture(providerUser.picture());
         user.setEmailVerified(providerUser.email_verified());
 
         user.setAccountNonExpired(true);

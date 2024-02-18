@@ -2,7 +2,10 @@ package org.invoice.product;
 
 import lombok.RequiredArgsConstructor;
 import org.invoice.exception.NotFoundException;
+import org.invoice.security.AppUserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -14,13 +17,17 @@ public class ProductController {
     private final ProductFacade facade;
 
     @PostMapping()
-    public ProductDto save(@RequestBody ProductDto contactDto) {
-        return facade.save(contactDto);
+    public ProductDto save(Authentication authentication, @RequestBody ProductDto contactDto) throws NotFoundException {
+        AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
+
+        return facade.save(appUserDetails.getUser().getId(),contactDto);
     }
 
     @GetMapping()
-    public List<ProductDto> findByUser() {
-        return facade.findByUser();
+    public List<ProductDto> findByUser(Authentication authentication) throws NotFoundException {
+        AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
+
+        return facade.findByUser(appUserDetails.getUser().getId());
     }
 
     @GetMapping("{id}")

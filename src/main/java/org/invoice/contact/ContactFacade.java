@@ -1,11 +1,15 @@
 package org.invoice.contact;
 
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.invoice.company.Company;
+import org.invoice.company.CompanyService;
 import org.invoice.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -13,19 +17,23 @@ import java.util.UUID;
 @Slf4j
 public class ContactFacade {
 
+    private final CompanyService companyService;
     private final ContactService contactService;
     private final ContactMapper mapper;
 
-    public ContactDto save(ContactDto contactDto) {
-        log.info("ContactFacade.save dto:{}", contactDto);
+    public ContactDto save(UUID userId, ContactDto contactDto) throws NotFoundException {
+        log.info("ContactFacade.save userId:{} dto:{}", userId, contactDto);
 
-        Contact contact = contactService.save(mapper.fromDto(contactDto));
+        Contact contact = mapper.fromDto(contactDto);
+        contact.setCompany(companyService.findByUserId(userId));
 
-        return mapper.toDto(contact);
+        return mapper.toDto(contactService.save(contact));
     }
 
-    public List<ContactDto> findByUser() {
-        return contactService.findByUserId().stream().map(mapper::toDto).toList();
+    public Page<ContactDto> findByUser(UUID userId, Pageable pageable) throws NotFoundException {
+        Company company = companyService.findByUserId(userId);
+
+        return contactService.findByCompany(company, pageable).map(mapper::toDto);
     }
 
     public ContactDto findById(UUID id) throws NotFoundException {

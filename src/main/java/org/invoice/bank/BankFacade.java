@@ -2,6 +2,8 @@ package org.invoice.bank;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.invoice.company.Company;
+import org.invoice.company.CompanyService;
 import org.invoice.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +14,22 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class BankFacade {
+
+    private final CompanyService companyService;
     private final BankService service;
     private final BankMapper mapper;
 
-    public BankDto save(BankDto bankDto) {
-        log.info("BankFacade.save dto:{}", bankDto);
+    public BankDto save(UUID userId, BankDto bankDto) throws NotFoundException {
+        log.info("BankFacade.save user:{} dto:{}", userId, bankDto);
+        Bank bank = mapper.fromDto(bankDto);
+        bank.setCompany(companyService.findByUserId(userId));
 
-        Bank bank = service.save(mapper.fromDto(bankDto));
-
-        return mapper.toDto(bank);
+        return mapper.toDto(service.save(bank));
     }
 
-    public List<BankDto> findByUser() {
-        return service.findByUserId().stream().map(mapper::toDto).toList();
+    public List<BankDto> findByUser(UUID userId) throws NotFoundException {
+        Company company = companyService.findByUserId(userId);
+        return service.findByCompany(company).stream().map(mapper::toDto).toList();
     }
 
     public BankDto findById(UUID id) throws NotFoundException {

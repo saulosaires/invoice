@@ -2,6 +2,8 @@ package org.invoice.bank;
 
 import lombok.RequiredArgsConstructor;
 import org.invoice.exception.NotFoundException;
+import org.invoice.security.AppUserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +17,15 @@ public class BankController {
     private final BankFacade facade;
 
     @PostMapping()
-    public BankDto save(@RequestBody BankDto bankDto) {
-        return facade.save(bankDto);
+    public BankDto save(Authentication authentication, @RequestBody BankDto bankDto) throws NotFoundException {
+        AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
+        return facade.save(appUserDetails.getUser().getId(), bankDto);
     }
 
     @GetMapping()
-    public List<BankDto> findByUser() {
-        return facade.findByUser();
+    public List<BankDto> findByUser(Authentication authentication) throws NotFoundException {
+        AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
+        return facade.findByUser(appUserDetails.getUser().getId());
     }
 
     @GetMapping("{id}")

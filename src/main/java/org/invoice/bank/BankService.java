@@ -1,6 +1,7 @@
 package org.invoice.bank;
 
 import lombok.RequiredArgsConstructor;
+import org.invoice.company.Company;
 import org.invoice.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,8 @@ public class BankService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(BANK_NOT_FOUND, id));
     }
 
-    public List<Bank> findByUserId() {
-        return repository.findAll();
+    public List<Bank> findByCompany(Company company) {
+        return repository.findByCompanyOrderByName(company);
     }
 
     public void delete(UUID id) {

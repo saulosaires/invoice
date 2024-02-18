@@ -1,6 +1,7 @@
 package org.invoice.product;
 
 import lombok.RequiredArgsConstructor;
+import org.invoice.company.Company;
 import org.invoice.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,8 @@ public class ProductService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND, id));
     }
 
-    public List<Product> findByUserId() {
-        return repository.findAll();
+    public List<Product> findByCompany(Company company) {
+        return repository.findByCompany(company);
     }
 
     public void delete(UUID id) {
