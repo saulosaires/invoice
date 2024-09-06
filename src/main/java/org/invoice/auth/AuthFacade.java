@@ -17,26 +17,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthFacade {
 
-    private final UserService userService;
-    private final ProviderFacade providerFacade;
-    private final JwtService jwtService;
+  private final UserService userService;
+  private final ProviderFacade providerFacade;
+  private final JwtService jwtService;
 
-    public String generateToken(User user) {
-        log.info("AuthFacade.generateToken token for: {}", user);
-        return jwtService.generateToken(user);
+  private String generateToken(User user) {
+    log.info("AuthFacade.generateToken token for: {}", user);
+    return jwtService.generateToken(user);
+  }
+
+  public String getToken(AuthRequest authRequest) throws NotFoundException, UserInvalidException, ProviderException {
+
+    if (authRequest.hasProvider()) {
+      ProviderUser providerUser = providerFacade.verifyToken(authRequest.providerToken(), authRequest.provider());
+      return generateToken(userService.save(providerUser));
     }
 
-    public String getToken(AuthRequest authRequest) throws NotFoundException, UserInvalidException, ProviderException {
+    User user = userService.findByEmail(authRequest.email());
+    userService.checkPassword(user, authRequest.password());
 
-        if (authRequest.hasProvider()) {
-            ProviderUser providerUser = providerFacade.verifyToken(authRequest.providerToken(), authRequest.provider());
-            return generateToken(userService.save(providerUser));
-        }
-
-        User user = userService.findByEmail(authRequest.email());
-        userService.checkPassword(user, authRequest.password());
-
-        return generateToken(user);
-    }
+    return generateToken(user);
+  }
 
 }

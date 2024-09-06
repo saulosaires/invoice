@@ -1,12 +1,13 @@
-package org.invoice.bank;
+package org.invoice.common;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface BankMapper {
+public interface PageMapper {
 
-  BankDto toDto(Bank country);
+  InvoicePage toDto(Page invoice);
 
-  Bank fromDto(BankDto country);
+
 }

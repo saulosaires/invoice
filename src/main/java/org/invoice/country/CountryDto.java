@@ -1,7 +1,5 @@
 package org.invoice.country;
 
-import java.util.UUID;
-
 public record CountryDto(
         Long id,
         String iso,

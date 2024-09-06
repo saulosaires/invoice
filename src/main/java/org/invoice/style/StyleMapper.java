@@ -1,12 +1,12 @@
-package org.invoice.bank;
+package org.invoice.style;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface BankMapper {
+public interface StyleMapper {
 
-  BankDto toDto(Bank country);
+  StyleDto toDto(Style style);
 
-  Bank fromDto(BankDto country);
+  Style fromDto(StyleDto dto);
 }

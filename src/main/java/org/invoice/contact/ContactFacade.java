@@ -17,30 +17,31 @@ import java.util.UUID;
 @Slf4j
 public class ContactFacade {
 
-    private final CompanyService companyService;
-    private final ContactService contactService;
-    private final ContactMapper mapper;
+  private final CompanyService companyService;
+  private final ContactService contactService;
+  private final ContactMapper mapper;
 
-    public ContactDto save(UUID userId, ContactDto contactDto) throws NotFoundException {
-        log.info("ContactFacade.save userId:{} dto:{}", userId, contactDto);
+  public ContactDto save(UUID userId, ContactDto contactDto) throws NotFoundException {
+    log.info("ContactFacade.save userId:{} dto:{}", userId, contactDto);
 
-        Contact contact = mapper.fromDto(contactDto);
-        contact.setCompany(companyService.findByUserId(userId));
+    Contact contact = mapper.fromDto(contactDto);
+    contact.setCompany(companyService.findByUserId(userId));
 
-        return mapper.toDto(contactService.save(contact));
-    }
+    return mapper.toDto(contactService.save(contact));
+  }
 
-    public Page<ContactDto> findByUser(UUID userId, Pageable pageable) throws NotFoundException {
-        Company company = companyService.findByUserId(userId);
+  public Page<ContactDto> findByUser(UUID userId, Pageable pageable) throws NotFoundException {
+    Company company = companyService.findByUserId(userId);
 
-        return contactService.findByCompany(company, pageable).map(mapper::toDto);
-    }
+    return contactService.findByCompany(company, pageable).map(mapper::toDto);
+  }
 
-    public ContactDto findById(UUID id) throws NotFoundException {
-        return mapper.toDto(contactService.findById(id));
-    }
+  public ContactDto findById(UUID id) throws NotFoundException {
+    return mapper.toDto(contactService.findById(id));
+  }
 
-    public void delete(UUID id) {
-        contactService.delete(id);
-    }
+  public void delete(UUID id) {
+    contactService.delete(id);
+  }
 }
+ 

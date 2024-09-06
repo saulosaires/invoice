@@ -1,5 +1,7 @@
 package org.invoice.contact;
 
+import org.invoice.country.CountryDto;
+
 import java.util.UUID;
 
 public record ContactDto(
@@ -8,6 +10,7 @@ public record ContactDto(
         String email,
         String phone,
         String address,
+        CountryDto country,
         String contactPerson,
         String vat,
         boolean isClient,
@@ -16,4 +19,5 @@ public record ContactDto(
         String accountHolder,
         String accountNumber,
         String swiftBic
-) { }
+) {
+}
